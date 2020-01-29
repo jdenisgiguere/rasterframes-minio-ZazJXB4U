@@ -10,12 +10,19 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+  "com.amazonaws" % "aws-java-sdk-s3" % "1.11.534",
   "org.apache.spark" %% "spark-core" % "2.4.4",
   "org.apache.spark" %% "spark-sql" % "2.4.4",
+  "org.locationtech.geotrellis" %% "geotrellis-proj4" % "2.3.3",
   "org.locationtech.geotrellis" %% "geotrellis-spark" % "2.3.3",
   "org.locationtech.geotrellis" %% "geotrellis-raster" % "2.3.3",
+  "org.locationtech.geotrellis" %% "geotrellis-vector" % "2.3.3",
   "org.locationtech.geotrellis" %% "geotrellis-s3" % "2.3.3",
+  "io.minio"                    % "minio" % "6.0.8",
+  "org.apache.hadoop"           % "hadoop-aws" % "3.1.3"
 )
+
+scalacOptions ++= Seq("-Xmax-classfile-name", "78")
 
 assemblyMergeStrategy in assembly := {
   case PathList("org", "aopalliance", xs @ _*)      => MergeStrategy.last
@@ -46,4 +53,14 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+dependencyOverrides += "com.fasterxml.jackson.core"   % "jackson-core"              % "2.9.6"
+dependencyOverrides += "com.fasterxml.jackson.core"   % "jackson-databind"          % "2.9.6"
+dependencyOverrides += "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.9.6"
+
+assemblyShadeRules in assembly := Seq(
+  ShadeRule.rename("com.google.common.**" -> "repackaged.com.google.common.@1").inAll,
+  ShadeRule.rename("com.google.protobuf.**" -> "repackaged.com.google.protobuf.@1").inAll
+)
+
 
