@@ -11,8 +11,8 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-java-sdk-s3" % "1.11.534",
-  "org.apache.spark" %% "spark-core" % "2.4.4",
-  "org.apache.spark" %% "spark-sql" % "2.4.4",
+  "org.apache.spark" %% "spark-core" % "2.4.4" % Provided,
+  "org.apache.spark" %% "spark-sql" % "2.4.4" % Provided,
   "org.locationtech.rasterframes" %% "rasterframes" % "0.8.5",
   "org.locationtech.rasterframes" %% "rasterframes-datasource" % "0.8.5",
   "org.locationtech.geotrellis" %% "geotrellis-proj4" % "2.3.3",
@@ -42,7 +42,6 @@ assemblyMergeStrategy in assembly := {
   case PathList("com", "sun", "research", xs @ _*)  => MergeStrategy.last
   case PathList("io", "netty", xs @ _*)             => MergeStrategy.last
   case PathList("com", "amazonaws", xs @ _*)        => MergeStrategy.last
-  case PathList("repackaged", "org", "apache", "hadoop", xs @ _*)        => MergeStrategy.last
   case "about.html"                                 => MergeStrategy.rename
   case "META-INF/ECLIPSEF.RSA"                      => MergeStrategy.last
   case "META-INF/mailcap"                           => MergeStrategy.last
@@ -63,8 +62,7 @@ dependencyOverrides += "com.fasterxml.jackson.module" % "jackson-module-scala_2.
 
 assemblyShadeRules in assembly := Seq(
   ShadeRule.rename("com.google.common.**" -> "repackaged.com.google.common.@1").inAll,
-  ShadeRule.rename("com.google.protobuf.**" -> "repackaged.com.google.protobuf.@1").inAll,
-  ShadeRule.rename("org.apache.hadoop.**" -> "repackaged.org.apache.hadoop.@1").inAll // Test to manage hadoop version conflict
+  ShadeRule.rename("com.google.protobuf.**" -> "repackaged.com.google.protobuf.@1").inAll
 )
 
 
