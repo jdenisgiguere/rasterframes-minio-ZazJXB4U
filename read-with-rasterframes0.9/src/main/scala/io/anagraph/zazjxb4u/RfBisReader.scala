@@ -12,6 +12,7 @@ import geotrellis.proj4.LatLng
 import geotrellis.raster._
 import geotrellis.raster.resample.NearestNeighbor
 import geotrellis.spark._
+import geotrellis.spark.store._
 import geotrellis.store.LayerId
 //import geotrellis.spark.io._
 //import geotrellis.spark.io.avro.AvroRecordCodec
@@ -72,13 +73,13 @@ object RfBisReader {
 
     // Reading Geotrellis is not working
     val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery/")
-    //val catalog = spark.read.geotrellisCatalog(catalogUri)
+    val catalog = spark.read.geotrellisCatalog(catalogUri)
     //println(s"Catalog is ${catalog}")
 
     val layer = Layer(catalogUri, LayerId(layerName, layerZoomLevel))
 
-    val layerDataFrame = spark.read.geotrellis.loadLayer(layer)
-    layerDataFrame.show(1)
+    //val layerDataFrame = spark.read.geotrellis.loadLayer(layer)
+    //layerDataFrame.show(1)
 
 
 
