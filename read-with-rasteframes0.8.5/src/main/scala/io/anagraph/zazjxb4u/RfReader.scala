@@ -40,7 +40,14 @@ object RfReader {
 
     import spark.implicits._
 
-    val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery")
+    // Reading parquet is working.
+    // We wil get an error later if in rasterframes if we don't do this first
+    val someMetadata = spark.read.parquet("s3a://geoimagery/metadata_data_frame/geoimagery_2002.parquet")
+    someMetadata.show(1)
+
+    // Reading Geotrellis is not working
+    val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery/")
+
     val catalog = spark.read.geotrellisCatalog(catalogUri)
     println(s"Catalog is ${catalog}")
 
