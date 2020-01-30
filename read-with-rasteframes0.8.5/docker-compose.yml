@@ -1,9 +1,9 @@
 version: "2.1"
 services:
-  gt2reader:
+  rf085reader:
     build:
       dockerfile: Dockerfile
       context: docker-context
     # stdin_open: true
     # tty: true
-    command: ["spark-submit", "read-with-geotrellis2-ZazJXB4U-assembly-0.1.jar"]
+    command: ["spark-submit", "read-with-rasterframes085-ZazJXB4U-assembly-0.1.jar"]
