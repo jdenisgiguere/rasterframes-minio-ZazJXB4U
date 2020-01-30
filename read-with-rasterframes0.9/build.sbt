@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
   "org.locationtech.rasterframes" %% "rasterframes" % "0.9.0-RC2",
   "org.locationtech.rasterframes" %% "rasterframes-datasource" % "0.9.0-RC2",
   "org.locationtech.geotrellis" %% "geotrellis-proj4" % "3.2.0",
+  "org.locationtech.geotrellis" %% "geotrellis-store" % "3.2.0",
   "org.locationtech.geotrellis" %% "geotrellis-spark" % "3.2.0",
   "org.locationtech.geotrellis" %% "geotrellis-raster" % "3.2.0",
   "org.locationtech.geotrellis" %% "geotrellis-vector" % "3.2.0",

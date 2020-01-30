@@ -1,5 +1,35 @@
 package io.anagraph.zazjxb4u
 
+import java.io.File
+import java.sql.Timestamp
+import java.time.ZonedDateTime
+
+import org.locationtech.rasterframes._
+import org.locationtech.rasterframes.datasource.DataSourceOptions
+import org.locationtech.rasterframes.rules._
+import org.locationtech.rasterframes.util._
+import geotrellis.proj4.LatLng
+import geotrellis.raster._
+import geotrellis.raster.resample.NearestNeighbor
+import geotrellis.spark._
+import geotrellis.store.LayerId
+//import geotrellis.spark.io._
+//import geotrellis.spark.io.avro.AvroRecordCodec
+//import geotrellis.spark.io.avro.codecs.Implicits._
+//import geotrellis.spark.io.index.ZCurveKeyIndexMethod
+//import geotrellis.spark.tiling.ZoomedLayoutScheme
+import geotrellis.vector._
+import org.apache.avro.generic._
+import org.apache.avro.{Schema, SchemaBuilder}
+import org.apache.hadoop.fs.FileUtil
+import org.apache.spark.sql.functions.{udf => sparkUdf}
+import org.apache.spark.sql.{DataFrame, Row}
+import org.apache.spark.storage.StorageLevel
+//import org.locationtech.rasterframes.TestEnvironment
+//import org.scalatest.{BeforeAndAfterAll, Inspectors}
+
+import scala.math.{max, min}
+
 import java.net.URI
 import org.locationtech.rasterframes.datasource._
 import org.locationtech.rasterframes.datasource.raster._
@@ -42,9 +72,16 @@ object RfBisReader {
 
     // Reading Geotrellis is not working
     val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery/")
+    //val catalog = spark.read.geotrellisCatalog(catalogUri)
+    //println(s"Catalog is ${catalog}")
 
-    val catalog = spark.read.geotrellisCatalog(catalogUri)
-    println(s"Catalog is ${catalog}")
+    val layer = Layer(catalogUri, LayerId(layerName, layerZoomLevel))
+
+    val layerDataFrame = spark.read.geotrellis.loadLayer(layer)
+    layerDataFrame.show(1)
+
+
+
 
     println("Done!")
   }
