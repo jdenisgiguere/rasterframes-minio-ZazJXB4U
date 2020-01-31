@@ -42,7 +42,7 @@ object RfReader {
 
     // Reading parquet is working.
     // We wil get an error later if in rasterframes if we don't do this first
-    val someMetadata = spark.read.parquet("s3a://geoimagery/metadata_data_frame/geoimagery_2002.parquet")
+    val someMetadata = spark.read.parquet("s3://geoimagery/metadata_data_frame/geoimagery_2002.parquet")
     someMetadata.show(1)
 
     // Reading Geotrellis is not working

@@ -1,4 +1,7 @@
 #!/bin/bash
+export AWS_ACCESS_KEY_ID=minio
+export AWS_SECRET_ACCESS_KEY=minio123
+export AWS_REGION=us-east-1
 export HADOOP_HOME=/opt/hadoop-3.1.3
 export SPARK_HOME=/opt/spark-2.4.4-bin-without-hadoop
 export PATH=$HADOOP_HOME/bin:$SPARK_HOME/bin:$PATH
