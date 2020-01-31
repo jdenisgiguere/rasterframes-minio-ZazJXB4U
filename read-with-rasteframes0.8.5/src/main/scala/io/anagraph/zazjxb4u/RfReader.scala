@@ -46,7 +46,7 @@ object RfReader {
     someMetadata.show(1)
 
     // Reading Geotrellis is not working
-    val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery/")
+    val catalogUri = new URI("s3a://geoimagery/geoimagery_geotrellis")
 
     val catalog = spark.read.geotrellisCatalog(catalogUri)
     println(s"Catalog is ${catalog}")
