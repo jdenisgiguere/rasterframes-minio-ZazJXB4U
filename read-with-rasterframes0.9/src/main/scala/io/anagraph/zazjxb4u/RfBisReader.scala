@@ -45,8 +45,8 @@ object RfBisReader {
   val s3SecretKey: String = "minio123"
   val s3Url: String = "http://192.168.2.133:9000"
   val bucket: String = "geoimagery"
-  val geotrellisPrefix: String = "geoimagery_geotrellis"
-  val layerName: String = "geoimagery_2002"
+  val geotrellisPrefix: String = "gt3catalog"
+  val layerName: String = "my_layer"
   val layerZoomLevel: Int = 0
   //val layerId: LayerId = LayerId(layerName, layerZoomLevel)
 
@@ -72,16 +72,13 @@ object RfBisReader {
     someMetadata.show(1)
 
     // Reading Geotrellis is not working
-    val catalogUri = new URI("s3a://geoimagery/geotrellis_geoimagery/")
+    val catalogUri = new URI("s3a://geoimagery/gt3catalog")
     val catalog = spark.read.geotrellisCatalog(catalogUri)
-    //println(s"Catalog is ${catalog}")
+    println(s"Catalog is ${catalog}")
 
     val layer = Layer(catalogUri, LayerId(layerName, layerZoomLevel))
-
-    //val layerDataFrame = spark.read.geotrellis.loadLayer(layer)
-    //layerDataFrame.show(1)
-
-
+    val layerDataFrame = spark.read.geotrellis.loadLayer(layer)
+    layerDataFrame.show(1)
 
 
     println("Done!")
